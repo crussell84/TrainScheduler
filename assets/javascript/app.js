@@ -29,7 +29,11 @@ $(document).ready(function () {
     }
 
     function calculateNextArrivalTime(firstTrain, frequency){
+        var nextArrival = "10:00";
+        var minutesAway = 10;
+        var trainDetails = {nextArrival: nextArrival, minutesAway: minutesAway};
 
+        return trainDetails;
     }
 
     database.ref().on("child_added", function(childSnapshot) {
@@ -40,15 +44,16 @@ $(document).ready(function () {
         var firstTrain = childSnapshot.val().firstTrain;
         var frequency = childSnapshot.val().frequency;
         
-        calculateNextArrivalTime(firstTrain, frequency);
+        var nextTrainDetails = calculateNextArrivalTime(firstTrain, frequency);
+        console.log(nextTrainDetails);
         
         // full list of items to the well
         var $newRow = $("<tr>");
         var $nameCell = $("<td>" + name + "</td>");
         var $destinationCell = $("<td>" + destination + "</td>");
         var $frequencyCell = $("<td>" + frequency + "</td>");
-        var $nextArrivalCell = $("<td>");
-        var $minutesAwayCell = $("<td>");
+        var $nextArrivalCell = $("<td>" + nextTrainDetails.nextArrival + "</td>");
+        var $minutesAwayCell = $("<td>" + nextTrainDetails.minutesAway + "</td>");
 
         // $nameCell.text(name);
         $newRow.append($nameCell, $destinationCell, $frequencyCell, $nextArrivalCell, $minutesAwayCell);
