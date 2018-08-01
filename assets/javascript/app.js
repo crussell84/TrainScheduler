@@ -29,8 +29,23 @@ $(document).ready(function () {
     }
 
     function calculateNextArrivalTime(firstTrain, frequency){
-        var nextArrival = "10:00";
-        var minutesAway = 10;
+        var now = moment();
+        var firstTrain = moment().set({'hour': firstTrain[0], 'minute': firstTrain[1]});
+        var nextArrival;
+        var minutesAway;
+        var trainTime = firstTrain;
+        
+
+        
+        while (trainTime < now) {
+            trainTime = trainTime.add(frequency, 'minutes');
+        }
+
+        if (trainTime > now){
+            nextArrival = trainTime.format('HH:mm');
+            minutesAway = trainTime.diff(now, 'minutes');
+        } 
+        
         var trainDetails = {nextArrival: nextArrival, minutesAway: minutesAway};
 
         return trainDetails;
@@ -67,7 +82,8 @@ $(document).ready(function () {
     $submit.on("click", function(){
         var destination = $destination.val();
         var trainName = $trainName.val().trim();
-        var firstTrain = $firstTrain.val().trim();
+        var firstTrain = $firstTrain.val().trim().split(":");
+        console.log(firstTrain);
         var frequency = $frequency.val().trim();
         addTrain(trainName, destination, firstTrain, frequency);
         document.getElementById("trainInfo").reset();
