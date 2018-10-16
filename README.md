@@ -9,4 +9,4 @@ This page uses Firebase & Moment.js to maintain a list of trains with destinatio
 
 ## To View Live
 
-- Go to: https://crussell84.github.io/TrainScheduler/
+- Go to: https://www.startwithaskateboard.com/TrainScheduler
